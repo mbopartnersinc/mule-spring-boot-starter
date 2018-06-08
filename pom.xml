@@ -109,7 +109,6 @@
                     <artifactId>spring-context</artifactId>
                     <groupId>org.springframework</groupId>
                 </exclusion>
-
                 <exclusion>
                     <artifactId>spring-beans</artifactId>
                     <groupId>org.springframework</groupId>
@@ -154,6 +153,13 @@
                 <version>2.4</version>
             </extension>
         </extensions>
+        <plugins>
+            <plugin>
+                <groupId>com.amashchenko.maven.plugin</groupId>
+                <artifactId>gitflow-maven-plugin</artifactId>
+                <version>1.9.0</version>
+            </plugin>
+        </plugins>
     </build>
 
     <repositories>
