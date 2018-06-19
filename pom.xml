@@ -5,7 +5,7 @@
 
     <groupId>com.mbopartners.boss</groupId>
     <artifactId>mule-spring-boot-starter</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>BOSS Mule Spring Boot Starter</name>
     <parent>
@@ -109,7 +109,6 @@
                     <artifactId>spring-context</artifactId>
                     <groupId>org.springframework</groupId>
                 </exclusion>
-
                 <exclusion>
                     <artifactId>spring-beans</artifactId>
                     <groupId>org.springframework</groupId>
@@ -145,6 +144,28 @@
             </url>
         </snapshotRepository>
     </distributionManagement>
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav-jackrabbit</artifactId>
+                <version>2.4</version>
+            </extension>
+        </extensions>
+        <plugins>
+            <plugin>
+                <groupId>com.amashchenko.maven.plugin</groupId>
+                <artifactId>gitflow-maven-plugin</artifactId>
+                <version>1.9.0</version>
+                <configuration>
+                    <gitFlowConfig>
+                        <versionTagPrefix>v</versionTagPrefix>
+                    </gitFlowConfig>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <repositories>
         <repository>
