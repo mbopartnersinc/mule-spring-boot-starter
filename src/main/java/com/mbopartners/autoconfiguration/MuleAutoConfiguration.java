@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +35,9 @@ public class MuleAutoConfiguration {
 
     @Value("${mule.config.files}")
     String muleConfigFiles;
+
+    @Value("${mule.servlet.url.pattern}")
+    String muleServletUrlPattern;
 
     @Bean
     public UserTransaction userTransaction() throws Throwable {
@@ -61,6 +65,15 @@ public class MuleAutoConfiguration {
         SpringTransactionManagerFactory managerFactory = new SpringTransactionManagerFactory();
         managerFactory.setTransactionManager(new JtaTransactionManager().getTransactionManager());
         return managerFactory;
+    }
+
+    @Bean
+    public ServletRegistrationBean muleServletBean(MuleContext muleContext) {
+        ServletRegistrationBean bean = new ServletRegistrationBean(
+                new SpringBootMuleReceiverServlet(muleContext), muleServletUrlPattern);
+        bean.setLoadOnStartup(1);
+
+        return bean;
     }
 
     @Bean
