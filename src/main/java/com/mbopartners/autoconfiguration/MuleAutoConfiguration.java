@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -68,6 +69,7 @@ public class MuleAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnProperty(value = "mule.servlet.url.pattern")
     public ServletRegistrationBean muleServletBean(MuleContext muleContext) {
         ServletRegistrationBean bean = new ServletRegistrationBean(
                 new SpringBootMuleReceiverServlet(muleContext), muleServletUrlPattern);
