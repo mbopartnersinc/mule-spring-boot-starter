@@ -4,7 +4,7 @@
 
     <groupId>com.mbopartners.boss</groupId>
     <artifactId>mule-spring-boot-starter</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
     <name>BOSS Mule Spring Boot Starter</name>
     <parent>
