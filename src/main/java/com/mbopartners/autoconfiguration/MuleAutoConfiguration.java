@@ -2,6 +2,7 @@ package com.mbopartners.autoconfiguration;
 
 import com.atomikos.icatch.jta.UserTransactionImp;
 import com.atomikos.icatch.jta.UserTransactionManager;
+import org.mule.DefaultMuleContext;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 import org.mule.api.client.MuleClient;
@@ -9,6 +10,7 @@ import org.mule.api.context.MuleContextBuilder;
 import org.mule.api.context.MuleContextFactory;
 import org.mule.api.transaction.TransactionManagerFactory;
 import org.mule.client.DefaultLocalMuleClient;
+import org.mule.config.DefaultMuleConfiguration;
 import org.mule.config.spring.SpringXmlConfigurationBuilder;
 import org.mule.context.DefaultMuleContextBuilder;
 import org.mule.context.DefaultMuleContextFactory;
@@ -39,6 +41,9 @@ public class MuleAutoConfiguration {
 
     @Value("${mule.servlet.url.pattern}")
     String muleServletUrlPattern;
+
+    @Value("${mule.working.directory:./.mule}")
+    String muleWorkingDir;
 
     @Bean
     public UserTransaction userTransaction() throws Throwable {
@@ -86,6 +91,7 @@ public class MuleAutoConfiguration {
 
     @Bean
     MuleContext muleContext(ApplicationContext context) throws MuleException {
+        System.setProperty("mule.workingDirectory", muleWorkingDir);
         logger.info("Creating MuleContext");
         MuleContextFactory muleContextFactory = new DefaultMuleContextFactory();
         logger.info("Loading Mule config files {}", muleConfigFiles);
@@ -100,6 +106,8 @@ public class MuleAutoConfiguration {
 
     @Configuration
     public static class MuleContextPostConstruct {
+
+
         @Autowired
         MuleContext muleContext;
 
