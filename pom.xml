@@ -21,6 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring.boot.version>1.5.9.RELEASE</spring.boot.version>
+        <jgitflow.version>1.0-m5.1</jgitflow.version>
     </properties>
 
     <dependencies>
@@ -160,14 +161,16 @@
         </extensions>
         <plugins>
             <plugin>
-                <groupId>com.amashchenko.maven.plugin</groupId>
-                <artifactId>gitflow-maven-plugin</artifactId>
-                <version>1.9.0</version>
-                <configuration>
-                    <gitFlowConfig>
-                        <versionTagPrefix>v</versionTagPrefix>
-                    </gitFlowConfig>
-                </configuration>
+                <groupId>external.atlassian.jgitflow</groupId>
+                <artifactId>jgitflow-maven-plugin</artifactId>
+                <version>${jgitflow.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.wagon</groupId>
+                        <artifactId>wagon-ssh</artifactId>
+                        <version>3.0.0</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
